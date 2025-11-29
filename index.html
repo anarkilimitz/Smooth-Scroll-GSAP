@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smooth Scroll как в GSAP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        .scroller {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            will-change: transform;
+        }
+
+        .section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .s1 {
+            background: #e74c3c;
+        }
+
+        .s2 {
+            background: #3498db;
+        }
+
+        .s3 {
+            background: #2ecc71;
+        }
+
+        .s4 {
+            background: #f1c40f;
+        }
+
+        .s5 {
+            background: #9b59b6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="scroller">
+        <div class="section s1">1</div>
+        <div class="section s2">2</div>
+        <div class="section s3">3</div>
+        <div class="section s4">4</div>
+        <div class="section s5">5</div>
+    </div>
+
+    <script>
+        const scroller = document.querySelector('.scroller');
+        let target = 0;
+        let current = 0;
+        const ease = 0.05; // у GSAP это 0,08
+        let isScrolling = false;
+
+        function setHeight() {
+            document.body.style.height = scroller.scrollHeight + 'px';
+        }
+
+        function lerp(start, end, factor) {
+            return start + (end - start) * factor;
+        }
+
+        function render() {
+            // Останавливаем анимацию если разница меньше 0.5px
+            if (Math.abs(target - current) > 0.5) {
+                current = lerp(current, target, ease);
+                scroller.style.transform = `translateY(${-current}px)`;
+                requestAnimationFrame(render);
+            } else {
+                current = target;
+                scroller.style.transform = `translateY(${-current}px)`;
+                isScrolling = false;
+            }
+        }
+
+        function handleScroll() {
+            target = window.scrollY || window.pageYOffset;
+            if (!isScrolling) {
+                isScrolling = true;
+                requestAnimationFrame(render);
+            }
+        }
+        // Используем passive: true для лучшей производительности
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('resize', setHeight);
+
+        setHeight();
+        requestAnimationFrame(render);
+    </script>
+
+</body>
+
+</html>
