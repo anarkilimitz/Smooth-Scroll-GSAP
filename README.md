@@ -4,7 +4,7 @@
 
 ## Демо
 
-[Открыть демо →](https://anarkilimitz.github.io/Smooth-Scroll-GSAP/){:target="_blank"}
+<a href="https://anarkilimitz.github.io/Smooth-Scroll-GSAP/" target="_blank" rel="noopener noreferrer">Открыть демо →</a>
 
 ## Особенности
 
