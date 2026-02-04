@@ -4,7 +4,7 @@
 
 ## Демо
 
-[Открыть демо →](https://anarkilimitz.github.io/Smooth-Scroll-GSAP/)
+[Открыть демо →](https://anarkilimitz.github.io/Smooth-Scroll-GSAP/){:target="_blank"}
 
 ## Особенности
 
